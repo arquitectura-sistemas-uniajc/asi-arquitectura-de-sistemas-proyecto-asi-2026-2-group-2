@@ -1,0 +1,20 @@
+services:
+  api1:
+    build: .
+    container_name: eventoya-api-1
+
+  api2:
+    build: .
+    container_name: eventoya-api-2
+
+  nginx:
+    image: nginx:alpine
+    container_name: eventoya-nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ./frontend:/usr/share/nginx/html:ro
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - api1
+      - api2

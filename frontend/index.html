@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>EventoYa - Boletería</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 600px; margin: 3rem auto; padding: 1rem; }
+    button { padding: 0.6rem 1rem; font-size: 1rem; cursor: pointer; }
+    pre { background: #f4f4f4; padding: 1rem; border-radius: 6px; }
+  </style>
+</head>
+<body>
+  <h1>EventoYa - Sistema de Boletería</h1>
+  <p>Frontend servido desde <strong>Nginx</strong> + Balanceador de carga hacia 2 réplicas de la API Node.js.</p>
+  <button onclick="probarApi()">Probar conexión con API (/api/health)</button>
+  <pre id="resultado">Haz clic en el botón para probar el balanceo...</pre>
+
+  <script>
+    async function probarApi() {
+      const res = await fetch('/api/health');
+      const data = await res.json();
+      const replica = res.headers.get('X-Upstream-Server');
+      document.getElementById('resultado').textContent =
+        JSON.stringify(data, null, 2) + '\n\nAtendido por réplica (IP:puerto): ' + replica;
+    }
+  </script>
+</body>
+</html>
