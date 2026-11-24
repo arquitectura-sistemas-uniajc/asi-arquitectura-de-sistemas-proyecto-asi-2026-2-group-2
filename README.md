@@ -18,3 +18,4 @@ docker compose up -d --build
 
 - **Frontend:** http://localhost:8080
 - **Healthcheck balanceado:** http://localhost:8080/api/health
+- Diagrama de Contenedores (Nivel 2): docs/arquitectura/contenedores.md
